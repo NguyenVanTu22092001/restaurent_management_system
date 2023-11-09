@@ -24,7 +24,7 @@ class ReservationFactory extends Factory
             'TableID' => rand(1, 5), // Replace with actual table IDs
             'ReservationDate' => fake()->date,
             'ReservationTime' => fake()->time,
-            'status' => 0,
+            'status' => null,
             // 'status' => fake()->randomElement(['confirmed', 'canceled', 'pending']),
             'seats' => fake()->numberBetween(1, 10),
         ];
