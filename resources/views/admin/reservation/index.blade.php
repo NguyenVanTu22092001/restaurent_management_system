@@ -10,7 +10,9 @@
             <div class="flex justify-end m-2 p-2">
                 <a href="" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New
                     Reservation</a>
+
             </div>
+
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
@@ -31,11 +33,11 @@
                                             Date
                                         </th>
                                         <th scope="col"
-                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            class="py-3 px-2 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Table
                                         </th>
                                         <th scope="col"
-                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            class="py-3 px-2 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Guests
                                         </th>
                                         <th scope="col"
@@ -67,12 +69,12 @@
 
                                             </td>
                                             <td
-                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-2 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $reservation->table->name }}
 
                                             </td>
                                             <td
-                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-2 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $reservation->seats }}
 
                                             </td>

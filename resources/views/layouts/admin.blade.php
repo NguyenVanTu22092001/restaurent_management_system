@@ -11,6 +11,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="icon"
         href="{{ asset('media-cdn.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/60808fav-icon.png') }}">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <style>
         .add-menu {
             .tab {
@@ -60,6 +62,47 @@
                 color: red;
             }
         }
+
+
+        /* details[role=list] summary:not([role]) {
+            padding: 0 1rem 0;
+            border: 0;
+        }
+
+        details[role=list] summary::after {
+            display: none;
+        }
+
+        details[role=list] summary+ul {
+            max-height: 260px;
+            overflow-y: auto;
+        }
+
+        details[role=list] summary+ul li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: stretch;
+        }
+
+        details[role=list] summary+ul li img {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-box-shadow);
+        }
+
+        details[role=list] summary+ul li a {
+            width: 100%;
+            height: 60px;
+            padding: var(--spacing);
+            margin: 0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        } */
     </style>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
