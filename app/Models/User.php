@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements LaratrustUser
 {
@@ -23,6 +24,11 @@ class User extends Authenticatable implements LaratrustUser
         'name',
         'email',
         'password',
+        'password',
+        'username',
+        'provider',
+        'provider_id',
+        'provider_token',
     ];
 
     /**
@@ -44,4 +50,19 @@ class User extends Authenticatable implements LaratrustUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // public function role()
+    // {
+    //     return $this->hasOneThrough(Role::class, 'role_user');
+    // }
+    public static function generateUserName($username)
+    {
+        if ($username === null) {
+            $username = Str::lower(Str::random(8));
+        }
+        if (User::where('username', $username)->exists()) {
+            $newUsername = $username . Str::lower(Str::random(3));
+            $username = self::generateUserName($newUsername);
+        }
+        return $username;
+    }
 }

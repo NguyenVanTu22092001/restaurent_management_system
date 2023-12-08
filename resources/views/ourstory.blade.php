@@ -154,7 +154,7 @@
                 </div>
                 <ul class="card-listing row">
                     <li class="card col-md-6 col-lg-4 card--cols-three revealable">
-                        <a class="card__btn" data-popup="team" href="../team-member/edward-de-decker/index.html">
+                        <a class="card__btn" data-popup="team" href="">
                             <div class="card__media">
                                 <div class="card__image image-thumbnail"
                                     style="background-image: url('../../images.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/31310Untitled_design_672005.jpg?w=1200&amp;fit=crop&amp;auto=compress,format&amp;crop=focalpoint&amp;fp-x=0.5&amp;fp-y=0.0');background-position:

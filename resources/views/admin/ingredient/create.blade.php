@@ -13,7 +13,7 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.ingredient.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="sm:col-span-6">
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
@@ -25,7 +25,7 @@
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="sm:col-span-6">
+                        {{-- <div class="sm:col-span-6">
                             <label for="image" class="block text-sm font-medium text-gray-700"> Image </label>
                             <div class="mt-1">
                                 <input type="file" id="image" name="image"
@@ -34,7 +34,7 @@
                             @error('image')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="sm:col-span-6 pt-5">
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                             <div class="mt-1">

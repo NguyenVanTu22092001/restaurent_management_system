@@ -4,11 +4,22 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    {{-- @foreach ($tablesWithStatuses as $table)
+        Table ID: {{ $table->id }}
+        Guest Number: {{ $table->guest_number }}
+        Name: {{ $table->name }}
 
+        @foreach ($table->hourTables as $hourTable)
+            Status: {{ $hourTable->status }}
+        @endforeach
+
+        <br>
+    @endforeach --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end m-2 p-2">
-                <a href="" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Table</a>
+                <a href="{{ route('admin.table.create') }}"
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Table</a>
             </div>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -25,14 +36,63 @@
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Guest
                                         </th>
-                                        {{-- <th scope="col"
+
+                                        <th scope="col" class="relative py-3 px-6">
+                                            <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($tables as $table)
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $table->name }}
+                                            </td>
+                                            <td
+                                                class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ $table->guest_number }}
+                                            </td>
+
+                                            <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                                <div class="flex space-x-2">
+                                                    <!-- Replace '#' with the appropriate route or URL for editing -->
+                                                    <a href="#"
+                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
+                                                    <form class="inline-block" method="POST" action="#">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <!-- Replace '#' with the appropriate route or URL for deletion -->
+                                                        <button type="submit"
+                                                            class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                            {{-- <table class="min-w-full">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            Name
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            Guest
+                                        </th>
+                                        <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Time
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Status
-                                        </th> --}}
+                                        </th>
                                         <th scope="col" class="relative py-3 px-6">
                                             <span class="sr-only">Edit</span>
                                         </th>
@@ -49,21 +109,9 @@
                                             <td
                                                 class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                                 {{ $table->guest_number }}
-
-
-                                            </td>
-                                            {{-- <td
-                                                class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-
-                                                Time
                                             </td>
 
 
-
-                                            <td
-                                                class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                Status
-                                            </td> --}}
                                             <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                 <div class="flex space-x-2">
                                                     <a href=""
@@ -84,7 +132,7 @@
 
 
                                 </tbody>
-                            </table>
+                            </table> --}}
                         </div>
                     </div>
                 </div>

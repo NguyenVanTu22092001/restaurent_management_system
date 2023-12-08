@@ -8,8 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end m-2 p-2">
-                <a href="" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New
-                    Category</a>
+                <a href="{{ route('admin.ingredient.create') }}"
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New
+                    Ingredient</a>
             </div>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -20,11 +21,11 @@
                                     <tr>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Name
+                                            ID
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Image
+                                            Name
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
@@ -36,39 +37,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($categories as $category) --}}
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{-- {{ $category->name }} --}}
-                                            Name
-                                        </td>
-                                        <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img src="" class="w-16 h-16 rounded">
-                                        </td>
-                                        <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{-- {{ $category->description }} --}}
-                                            Description
-                                        </td>
-                                        <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex space-x-2">
-                                                <a href=""
-                                                    class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
-                                                <form
-                                                    class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
-                                                    method="POST" action=""
-                                                    onsubmit="return confirm('Are you sure?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit">Delete</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {{-- @endforeach --}}
+                                    @php
+                                        $id = 1;
+                                    @endphp
+                                    @foreach ($ingredients as $ingredient)
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $id++ }}
+                                            </td>
+
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $ingredient->name }}
+
+                                            </td>
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $ingredient->description }}
+
+                                            </td>
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <div class="flex space-x-2">
+                                                    <a href=""
+                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
+                                                    <form
+                                                        class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                        method="POST" action=""
+                                                        onsubmit="return confirm('Are you sure?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>

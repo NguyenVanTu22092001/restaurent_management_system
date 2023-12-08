@@ -123,11 +123,20 @@
                                             <ul>
                                                 @foreach ($shareables as $shareable)
                                                     <li class="menu-item">
+
                                                         <p class="menu-item__heading">{{ $shareable->name }}</p>
+                                                        {{--
+                                                        <img src="{{ Storage::url($shareable->image) }}"
+                                                            class="w-16 h-16 rounded"> --}}
+
                                                         <p>{{ $shareable->description }}</p>
                                                         <p class="menu-item__details menu-item__details--price">
                                                             <strong><span
-                                                                    class="menu-item__currency">$</span>{{ $shareable->price }}</strong>
+                                                                    class="menu-item__currency">$</span>{{ $shareable->special_price }}</strong>
+                                                            @if ($shareable->price != $shareable->special_price)
+                                                                <strong><span
+                                                                        class="menu-item__currency">$</span>{{ $shareable->price }}</strong>
+                                                            @endif
                                                         </p>
                                                     </li>
                                                 @endforeach
@@ -164,20 +173,16 @@
                                                 Rings (+2)
                                             </div>
                                             <ul>
-                                                @foreach ($sandwiches as $sandwiche)
+                                                @foreach ($sandwiches as $sandwich)
                                                     <li class="menu-item">
-                                                        <p class="menu-item__heading">HANGOVER BURGER*</p>
-                                                        <p>Double Angus Patty Smashburger, Lettuce, Pickles, Chipotle
-                                                            Aioli,
-                                                            Sourdough Bun</p>
+                                                        <p class="menu-item__heading">{{ $sandwich->name }}</p>
+                                                        <p>{{ $sandwich->description }}</p>
                                                         <p class="menu-item__details menu-item__details--price">
                                                             <strong><span
-                                                                    class="menu-item__currency">$</span>18</strong>
+                                                                    class="menu-item__currency">$</span>{{ $sandwich->special_price }}</strong>
                                                         </p>
                                                     </li>
                                                 @endforeach
-
-
                                             </ul>
                                         </section>
                                     </div>
@@ -189,11 +194,11 @@
                                             <ul>
                                                 @foreach ($breakfasts as $breakfast)
                                                     <li class="menu-item">
-                                                        <p class="menu-item__heading">{{ $shareable->name }}</p>
-                                                        <p>{{ $shareable->description }}</p>
+                                                        <p class="menu-item__heading">{{ $breakfast->name }}</p>
+                                                        <p>{{ $breakfast->description }}</p>
                                                         <p class="menu-item__details menu-item__details--price">
                                                             <strong><span
-                                                                    class="menu-item__currency">$</span>{{ $shareable->price }}</strong>
+                                                                    class="menu-item__currency">$</span>{{ $breakfast->price }}</strong>
                                                         </p>
                                                     </li>
                                                 @endforeach
@@ -244,13 +249,11 @@
                                             <ul>
                                                 @foreach ($cocktails as $cocktail)
                                                     <li class="menu-item">
-                                                        <p class="menu-item__heading">The People's Bloody Mary</p>
-                                                        <p>Family Jones Vodka, OG Bloody Mix, Pickled Vegetables,
-                                                            Celery,
-                                                            Bacon</p>
+                                                        <p class="menu-item__heading">{{ $cocktail->name }}</p>
+                                                        <p>{{ $cocktail->description }}</p>
                                                         <p class="menu-item__details menu-item__details--price">
                                                             <strong><span
-                                                                    class="menu-item__currency">$</span>13</strong>
+                                                                    class="menu-item__currency">$</span>{{ $cocktail->special_price }}</strong>
                                                         </p>
                                                     </li>
                                                 @endforeach
@@ -284,15 +287,24 @@
                                             <ul>
                                                 @foreach ($boozyshakes as $boozyshake)
                                                     <li class="menu-item">
-                                                        <div class="image-thumbnail"
-                                                            style="background-image: url('../../images.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/72783OG_MILKSHAKE_07_1c15e.gif?w=1200&amp;fit=max&amp;auto=compress,format');background-position:none;">
-                                                            <img class="sr-only" alt="">
-                                                        </div>
+                                                        <p class="menu-item__heading" role="heading" aria-level="3">
+                                                            {{ $boozyshake->name }}</p>
+                                                        <p>{{ $boozyshake->description }}</p>
                                                         <p class="menu-item__details menu-item__details--price">
+                                                            <strong><span
+                                                                    class="menu-item__currency">$</span>{{ $boozyshake->special_price }}</strong>
                                                         </p>
+
                                                     </li>
                                                 @endforeach
-
+                                                <li class="menu-item">
+                                                    <div class="image-thumbnail"
+                                                        style="background-image: url('../../images.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/72783OG_MILKSHAKE_07_1c15e.gif?w=1200&amp;fit=max&amp;auto=compress,format');background-position:none;">
+                                                        <img class="sr-only" alt="">
+                                                    </div>
+                                                    <p class="menu-item__details menu-item__details--price">
+                                                    </p>
+                                                </li>
 
                                             </ul>
                                         </section>
@@ -392,8 +404,8 @@
         src="{{ asset('theme-assets.getbento.com/sensei/e013a28.sensei/assets/js/foot.libs.min.js') }}"></script>
     <script type="text/javascript"
         src="{{ asset('theme-assets.getbento.com/sensei/e013a28.sensei/assets/js/bentobox.min.js') }}"></script>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNH76ZF" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    {{-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNH76ZF" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript> --}}
     <script id="alerts-component-script" type="text/javascript"
         src="{{ asset('app-assets.getbento.com/alerts-component/54a47dd/main.js') }}"></script>
     <script type="text/javascript" src="https://app-assets.getbento.com/alerts-component/54a47dd/main.js.map"></script>

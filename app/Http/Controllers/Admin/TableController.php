@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
 use App\Models\Hour;
+use App\Models\HourTable;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::all();
 
+        $tables = Table::with('hourTables')->get();
 
 
         return view('admin.table.index', compact('tables'));
@@ -80,5 +81,15 @@ class TableController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function test()
+    {
+        try {
+            DB::table('hour_table')->where('table_id', 7)
+                ->where('hour_id', 8)
+                ->update(['status' => 'available']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }

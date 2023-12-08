@@ -7,17 +7,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- <div class=" justify-start ">
-                <form method="POST" class="flex" action="/admin/statistic/income-statement">
-                    @csrf
-                    <x-text-input id="date" class="block  w-30 mr-4" type="date" name="start_date"
-                        value="{{ $start_date }}" required autofocus autocomplete="date" />
-                    <x-text-input id="date" class="block w-30 mr-4" type="date" name="end_date"
-                        value="{{ $end_date }}" required autofocus autocomplete="date" />
-                    <button type="submit"
-                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Submit</button>
-                </form>
-            </div> --}}
+            <div class=" justify-start ">
+                <div class="p-2 ">
+                    <form method="POST" class="flex" action="{{ route('admin.export-menu-statistic') }}" target="_blank">
+                        @csrf
+                        <button type="submit"
+                            class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Export</button>
+
+                    </form>
+                </div>
+            </div>
 
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">

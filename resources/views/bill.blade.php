@@ -114,11 +114,11 @@
                                 <li class="text-muted ms-3"><span class="text-black me-4">SubTotal:
                                     </span>${{ $total }}</li>
                                 <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Tax(15%):
-                                    </span>${{ $total * 0.15 }}
+                                    </span>${{ $total * 0.08 }}
                                 </li>
                             </ul>
                             <p class="text-black float-start"><span class="text-black me-3">Total:</span><span
-                                    style="font-size: 25px;">${{ $total * 1.15 }}</span></p>
+                                    style="font-size: 25px;">${{ $total * 1.08 }}</span></p>
                         </div>
                     </div>
                     <hr>

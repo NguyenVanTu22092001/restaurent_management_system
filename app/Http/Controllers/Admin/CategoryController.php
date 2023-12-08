@@ -54,17 +54,32 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+        $image = $category->image;
+        if ($request->hasFile('image')) {
+            Storage::delete($category->image);
+            $image = $request->file('image')->store('public/category');
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image
+        ]);
+        return to_route('admin.category.index')->with('success', 'Category updated successfully.');
     }
 
     /**

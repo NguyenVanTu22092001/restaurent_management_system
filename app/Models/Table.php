@@ -11,7 +11,11 @@ class Table extends Model
     protected $fillable = ['name', 'guest_number'];
     public function hours()
     {
-        return $this->belongsToMany(Hour::class, 'hour_table')->withPivot('status');
+        return $this->belongsToMany(Hour::class, 'hour_table', 'table_id', 'hour_id')->withPivot('status');
+    }
+    public function hourTables()
+    {
+        return $this->hasMany(HourTable::class, 'table_id', 'id');
     }
     public function reservations()
     {

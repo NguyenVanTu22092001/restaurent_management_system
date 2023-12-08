@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Hour;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -13,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class ReservationController extends Controller
@@ -24,10 +25,13 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::orderBy('ReservationDate', 'DESC')->paginate(15);
-
-        return view('admin.reservation.index', compact('reservations'));
+        return view('admin.reservation.index', ['reservations' => $reservations, 'end_date' => date('Y-m-d'), 'start_date' => date('Y-m-d')]);
     }
-
+    public function reservationByDate(Request $request)
+    {
+        $reservations = Reservation::orderBy('ReservationDate', 'DESC')->whereBetween('ReservationDate', [$request->start_date, $request->end_date])->paginate(15);
+        return view('admin.reservation.indexbydate', ['reservations' => $reservations, 'end_date' => date('Y-m-d'), 'start_date' => date('Y-m-d')]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -80,7 +84,7 @@ class ReservationController extends Controller
 
         $categories = Category::all();
         $id = Crypt::decrypt($encryptedId);
-        return view('add_menu', ['categories' => $categories, 'id' => $id]);
+        return view('admin.reservation.add_menu', ['categories' => $categories, 'id' => $id]);
     }
     public function addFood(Request $request)
     {
@@ -93,16 +97,22 @@ class ReservationController extends Controller
             if ($quantities[$key] > 0) {
                 $quantity = $quantities[$key];
                 $product = Product::findOrFail($productId);
-                $total += (($product->special_price) * $quantity) * 1.15;
+                $total += (($product->special_price) * $quantity) * 1.08;
             }
         }
 
         if ($total > 0) {
+            $order = Order::where('reservation_id', $reservationId)->first();
+            if ($order) {
+                $order->total_amount += $total;
+                $order->save();
+            } else {
+                $order = Order::create([
+                    'total_amount' => $total,
+                    'reservation_id' => $reservationId,
+                ]);
+            }
 
-            $order = Order::create([
-                'total_amount' => $total,
-                'reservation_id' => $reservationId,
-            ]);
 
             foreach ($productIds as $key => $productId) {
                 $quantity = $quantities[$key];
@@ -171,6 +181,11 @@ class ReservationController extends Controller
         $valueStatus = 2;
         $reservationId = Crypt::decrypt($ecryptId);
         $reservation = Reservation::findOrFail($reservationId);
+        //update status to table with hour
+
+        $hour = Hour::where('res_hour', $reservation->ReservationTime)->first();
+        DB::table('hour_table')->where('table_id', $reservation->TableID)->where('hour_id', $hour->id)->update(['status' => 'available']);
+
         $reservation->status = $valueStatus;
         $reservation->save();
         $orderItems = OrderItem::whereHas('order.reservation', function ($query) use ($reservationId) {
@@ -186,6 +201,20 @@ class ReservationController extends Controller
         $pdf = Pdf::loadView('bill',  compact('data', 'itemCode'));
 
         return $pdf->stream('bill' . $ecryptId . '.pdf');
-        // return view('bill', compact('data'));
+        // return view('bill', compact('data'));x
+    }
+    public function checkout($ecryptId)
+    {
+        $reservationId = Crypt::decrypt($ecryptId);
+        $orderItems = OrderItem::whereHas('order.reservation', function ($query) use ($reservationId) {
+            $query->where('id', $reservationId);
+        })->get();
+        $data = ['OrderItems' => $orderItems];
+        $total = 0;
+        foreach ($orderItems as $orderItem) {
+            $product = Product::findOrFail($orderItem->product_id);
+            $total += (($product->special_price) * $orderItem->quantity);
+        }
+        return view('admin.reservation.checkout', compact('data', 'total', 'reservationId'));
     }
 }

@@ -40,9 +40,9 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="hero__scroll-btn arrow-btn arrow-btn--down">
+                {{-- <button type="button" class="hero__scroll-btn arrow-btn arrow-btn--down">
                     <span class="sr-only">Scroll Down to Content</span>
-                </button>
+                </button> --}}
             </section>
             <div class="c-embed revealable">
                 <!-- Google Tag Manager (noscript) -->
@@ -70,7 +70,7 @@
                                     of a stack fluffy pancakes drizzled in real maple syrup or tempted by our signature
                                     avocado toast topped with poached eggs, every bite is an experience to
                                     remember.&nbsp;</span></p>
-                            <a href="menus/index.html" class="btn btn-brand" target="_parent">View Menus</a>
+                            <a href="menus" class="btn btn-brand" target="_parent">View Menus</a>
                         </div>
                     </div>
                 </div>
@@ -78,17 +78,17 @@
             <aside class="c-featured--news content container">
                 <ul class="card-listing row">
                     <li class="card col-md-6 col-lg-4 card--cols-three revealable">
-                        <a class="card__btn" href="news-item/og/index.html">
+                        <a class="card__btn" href="">
                             <h3 class="h2 card__heading">The Time and The Place</h3>
                         </a>
                     </li>
                     <li class="card col-md-6 col-lg-4 card--cols-three revealable">
-                        <a class="card__btn" href="news-item/about/index.html">
+                        <a class="card__btn" href="">
                             <h3 class="h2 card__heading">Did we just become best friends?</h3>
                         </a>
                     </li>
                     <li class="card col-md-6 col-lg-4 card--cols-three revealable">
-                        <a class="card__btn" href="news-item/private-events/index.html">
+                        <a class="card__btn" href="">
                             <h3 class="h2 card__heading">Hey Party People!</h3>
                         </a>
                     </li>
@@ -117,7 +117,7 @@
                             <p><span style="font-size: 18px;">Every day is a reason to celebrate! Join us for a lineup
                                     of exciting events and happenings that will add a dash of flavor to your brunch
                                     experience.&nbsp;</span></p>
-                            <a href="happenings/index.html" class="btn btn-brand" target="_parent">View
+                            <a href="" class="btn btn-brand" target="_parent">View
                                 Happenings</a>
                         </div>
                     </div>

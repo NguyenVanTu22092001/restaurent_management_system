@@ -7,10 +7,22 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-end m-2 p-2">
+            {{-- <div class="flex justify-end m-2 p-2">
                 <a href="" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New
                     Reservation</a>
 
+            </div> --}}
+
+            <div class=" justify-start ">
+                <form method="POST" class="flex" action="/admin/reservation-by-date">
+                    @csrf
+                    <x-text-input id="date" class="block  w-30 mr-4" type="date" name="start_date"
+                        value="{{ $start_date }}" required autofocus autocomplete="date" />
+                    <x-text-input id="date" class="block w-30 mr-4" type="date" name="end_date"
+                        value="{{ $end_date }}" required autofocus autocomplete="date" />
+                    <button type="submit"
+                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Submit</button>
+                </form>
             </div>
 
             <div class="flex flex-col">
@@ -91,18 +103,11 @@
                                             </td>
                                             <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                 <div class="flex space-x-2">
-                                                    <a href=""
-                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
-                                                    <form
-                                                        class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
-                                                        method="POST" action=""
-                                                        onsubmit="return confirm('Are you sure?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit">Delete</button>
-                                                    </form>
+
                                                     <a href="/admin/add-menu/{{ Crypt::encrypt($reservation->id) }}"
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Order</a>
+                                                    <a href="/admin/checkout/{{ Crypt::encrypt($reservation->id) }}"
+                                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Checkout</a>
                                                     <a href="/admin/print-bill/{{ Crypt::encrypt($reservation->id) }}"
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Print
                                                         Bill</a>

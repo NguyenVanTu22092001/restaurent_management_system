@@ -31,9 +31,9 @@
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Guests
                                         </th>
-                                        <th scope="col"
+                                        {{-- <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,13 +59,13 @@
                                             class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $reservationData->seats }}
                                         </td>
-                                        <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                        {{-- <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                             <div class="flex space-x-2">
                                                 <a href="" style="text-decoration: none;"
                                                     class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white ">Order
                                                 </a>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 </tbody>
                             </table>

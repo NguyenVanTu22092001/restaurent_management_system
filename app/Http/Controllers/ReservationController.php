@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hour;
 use App\Models\Reservation;
 use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -116,6 +118,8 @@ class ReservationController extends Controller
                 'seats' => $suitableTable['seats']
             ]);
         }
+        $hour = Hour::where('res_hour', $reservationData->ReservationTime)->first();
+        DB::table('hour_table')->where('table_id', $reservationData->TableID)->where('hour_id', $hour->id)->update(['status' => 'using']);
         session()->forget('tableData');
 
         $encryptedId = Crypt::encrypt($reservationData->id);

@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function menus()
     {
-
         $categoryShareables = Category::where('name', 'like', '%wine%')->get();
 
         $shareables = [];
@@ -63,7 +63,7 @@ class HomeController extends Controller
         $salads = collect($salads)->unique('id');
         $salads = Product::whereIn('id', $salads->pluck('id')->all())->with('categories')->get();
 
-        $categorysandwiches = Category::where('name', 'like', '%Soups and sandwiche%')->get();
+        $categorysandwiches = Category::where('name', 'like', '%Sandwiches%')->get();
         $sandwiches = [];
         foreach ($categorysandwiches as $category) {
             $products = $category->products;
@@ -73,7 +73,7 @@ class HomeController extends Controller
         $sandwiches = collect($sandwiches)->unique('id');
         $sandwiches = Product::whereIn('id', $sandwiches->pluck('id')->all())->with('categories')->get();
 
-        $categorycocktails = Category::where('name', 'like', '%cocktails%')->get();
+        $categorycocktails = Category::where('name', 'like', '%Boozy Cocktails%')->get();
         $cocktails = [];
         foreach ($categorycocktails as $category) {
             $products = $category->products;
@@ -83,7 +83,7 @@ class HomeController extends Controller
         $cocktails = collect($cocktails)->unique('id');
         $cocktails = Product::whereIn('id', $cocktails->pluck('id')->all())->with('categories')->get();
 
-        $categorynonboozys = Category::where('name', 'like', '%nonboozy%')->get();
+        $categorynonboozys = Category::where('name', 'like', '%Non Boozy%')->get();
         $nonboozys = [];
         foreach ($categorynonboozys as $category) {
             $products = $category->products;
@@ -93,7 +93,7 @@ class HomeController extends Controller
         $nonboozys = collect($nonboozys)->unique('id');
         $nonboozys = Product::whereIn('id', $nonboozys->pluck('id')->all())->with('categories')->get();
 
-        $categoryboozyshakes = Category::where('name', 'like', '%boozyshake%')->get();
+        $categoryboozyshakes = Category::where('name', 'like', '%Boozy Shakes%')->get();
         $boozyshakes = [];
         foreach ($categoryboozyshakes as $category) {
             $products = $category->products;
@@ -103,7 +103,7 @@ class HomeController extends Controller
         $boozyshakes = collect($boozyshakes)->unique('id');
         $boozyshakes = Product::whereIn('id', $boozyshakes->pluck('id')->all())->with('categories')->get();
 
-        $categorycans = Category::where('name', 'like', '%cans & bottles %')->get();
+        $categorycans = Category::where('name', 'like', '%Cans & Bottles%')->get();
         $cans = [];
         foreach ($categorycans as $category) {
             $products = $category->products;
@@ -114,7 +114,7 @@ class HomeController extends Controller
         $cans = Product::whereIn('id', $cans->pluck('id')->all())->with('categories')->get();
 
 
-        $categorybeers = Category::where('name', 'like', '%draf beers%')->get();
+        $categorybeers = Category::where('name', 'like', '%Draft Beers%')->get();
         $beers = [];
         foreach ($categorybeers as $category) {
             $products = $category->products;
@@ -128,5 +128,14 @@ class HomeController extends Controller
             'sandwiches' => $sandwiches, 'cocktails' => $cocktails, 'nonboozys' => $nonboozys,
             'boozyshakes' => $boozyshakes, 'cans' => $cans, 'beers' => $beers
         ]);
+    }
+    public function reservation()
+    {
+
+        if (Auth::check()) {
+            return view('reservation');
+        } else {
+            return redirect('register');
+        }
     }
 }

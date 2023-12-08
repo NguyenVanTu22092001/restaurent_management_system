@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -12,7 +13,8 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return view('admin.ingredient.index');
+        $ingredients = Ingredient::all();
+        return view('admin.ingredient.index', ['ingredients' => $ingredients]);
     }
 
     /**
@@ -28,7 +30,14 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        Ingredient::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return to_route('admin.ingredient.index')->with('success', 'Ingredient created successfully.');
     }
 
     /**

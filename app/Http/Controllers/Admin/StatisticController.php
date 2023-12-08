@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\IncomeStatisticExport;
+use App\Exports\MenuStatisticExport;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StatisticController extends Controller
 {
@@ -70,7 +73,7 @@ class StatisticController extends Controller
     public function incomeStatement()
     {
 
-        $reservations = Reservation::orderBy('id', 'desc')->where('status', '2')->paginate(15);
+        $reservations = Reservation::orderBy('id', 'desc')->where('status', '2')->get();
         $totalAmounts[] = [];
 
         foreach ($reservations as $reservation) {
@@ -86,7 +89,7 @@ class StatisticController extends Controller
         $reservations = Reservation::orderBy('id', 'desc')
             ->where('status', '2')
             ->whereBetween('ReservationDate', [$request->start_date, $request->end_date])
-            ->paginate(15);
+            ->get();
         $totalAmounts[] = [];
 
         foreach ($reservations as $reservation) {
@@ -131,5 +134,17 @@ class StatisticController extends Controller
         });
 
         return view('admin.statistic.menu_revenue', ['totalRevenue' => $totalRevenue]);
+    }
+    public function exportMenuStatistic()
+    {
+        return Excel::download(new MenuStatisticExport, 'MenuStatistic.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
+    public function exportIncomeStatistic(Request $request)
+    {
+
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+
+        return Excel::download(new IncomeStatisticExport($startDate, $endDate), 'income_statistics_' . $startDate . '_' . $endDate . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }

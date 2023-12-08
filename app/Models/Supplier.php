@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Supplier extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'location', 'phone', 'description'];
-    public function ingredients()
+    protected $fillable = ['name', 'phone', 'email', 'description'];
+
+    public function supplies()
     {
-        return $this->belongsToMany(Ingredient::class, 'ingredient_supplier');
+        return $this->hasMany(IngredientSupply::class, 'SupplierID');
+    }
+
+    public function recipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'recipe_supplier', 'supplier_id', 'recipe_id');
     }
 }

@@ -11,6 +11,6 @@ class Hour extends Model
     protected $fillable = ['res_hour'];
     public function tables()
     {
-        return $this->belongsToMany(Table::class, 'hour_table')->withPivot('status');
+        return $this->belongsToMany(Table::class, 'hour_table', 'hour_id', 'table_id')->withPivot('status');
     }
 }

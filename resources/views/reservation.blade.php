@@ -41,7 +41,7 @@
                             <option value="5">5 People</option>
                             <option value="6">6 People</option>
                             <option value="7">7 People</option>
-                            <option value="8">8+ People</option>
+                            <option value="8">8People</option>
                         </select>
                         <span class="form-control-group--icon is-positioned-right" aria-hidden="true">
                             <i class="fa fa-chevron-down"></i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -12,7 +13,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('admin.supplier.index');
+        $suppliers = Supplier::all();
+        return view('admin.supplier.index', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -28,7 +30,14 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Supplier::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'description' => $request->description,
+        ]);
+
+        return to_route('admin.supplier.index')->with('success', 'Ingredient created successfully.');
     }
 
     /**

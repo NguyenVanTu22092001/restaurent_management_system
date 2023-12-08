@@ -12,7 +12,7 @@
     <link rel="icon"
         href="{{ asset('media-cdn.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/60808fav-icon.png') }}">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> --}}
     <style>
         .add-menu {
             .tab {
@@ -145,94 +145,139 @@
     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
     focus:outline-none focus:shadow-outline"
                     href="/">Home</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                @if (auth()->check() &&
+                        auth()->user()->hasRole('admin'))
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                           {{ request()->routeIs('admin.category.index') ? 'bg-gray-200' : 'bg-transparent' }}
+                           rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
+                           dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
+                           hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
+                           focus:outline-none focus:shadow-outline"
+                        href="/admin/user">User</a>
+                    <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                            <span>Statistic</span>
+                            <svg fill="currentColor" viewBox="0 0 20 20"
+                                :class="{ 'rotate-180': open, 'rotate-0': !open }"
+                                class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" class="">
+                            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-700">
+                                <x-dropdown-link :href="route('admin.income-statement')"
+                                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                                    Income Statement
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.total-revenue')"
+                                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                                    Total Revenue
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.menu-revenue')"
+                                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                                    Menu Revenue
+                                </x-dropdown-link>
+                                {{-- <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <x-dropdown-link :href="route('logout')"
+                                            onclick="event.preventDefault();
+                                                                    this.closest('form').submit();"
+                                            class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                                            {{ __('Log Out') }}
+                                        </x-dropdown-link>
+                                    </form> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
                     {{ request()->routeIs('admin.category.index') ? 'bg-gray-200' : 'bg-transparent' }}
                     rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
                     dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
                     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
                     focus:outline-none focus:shadow-outline"
-                    href="/admin/category">Category</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                        href="/admin/category">Category</a>
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
     {{ request()->routeIs('admin.product.index') ? 'bg-gray-200' : 'bg-transparent' }}
     rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
     dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
     focus:outline-none focus:shadow-outline"
-                    href="/admin/product">Product</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                        href="/admin/product">Product</a>
+                    {{-- <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
     {{ request()->routeIs('admin.menus.index') ? 'bg-gray-200' : 'bg-transparent' }}
     rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
     dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
     focus:outline-none focus:shadow-outline"
-                    href="/admin/combo">Combo</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                        href="/admin/combo">Combo</a> --}}
+                    {{-- <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                        {{ request()->routeIs('admin.hour.index') ? 'bg-gray-200' : 'bg-transparent' }}
+                        rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
+                        dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
+                        hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
+                        focus:outline-none focus:shadow-outline"
+                        href="/admin/hour">Hour</a> --}}
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
                     {{ request()->routeIs('admin.table.index') ? 'bg-gray-200' : 'bg-transparent' }}
                     rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
                     dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
                     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
                     focus:outline-none focus:shadow-outline"
-                    href="/admin/table">Table</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                        href="/admin/table">Table</a>
+                @endif
+                @if (auth()->check() &&
+                        (auth()->user()->hasRole('admin') ||
+                            auth()->user()->hasRole('waiter')))
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                    {{ request()->routeIs('admin.reservations.index') ? 'bg-gray-200' : 'bg-transparent' }}
+                    rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
+                    dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
+                    hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
+                    focus:outline-none focus:shadow-outline"
+                        href="{{ route('admin.reservation.index') }}">Reservation</a>
+                @endif
+                @if (auth()->check() &&
+                        (auth()->user()->hasRole('admin') ||
+                            auth()->user()->hasRole('warehouse_staff')))
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
                     {{ request()->routeIs('admin.ingredient.index') ? 'bg-gray-200' : 'bg-transparent' }}
                     rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
                     dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
                     hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
                     focus:outline-none focus:shadow-outline"
-                    href="/admin/ingredient">Ingredient</a>
-                <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
-    {{ request()->routeIs('admin.reservations.index') ? 'bg-gray-200' : 'bg-transparent' }}
-    rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
-    dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
-    hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
-    focus:outline-none focus:shadow-outline"
-                    href="/admin/reservation">Reservation</a>
+                        href="/admin/ingredient">Ingredient</a>
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                    {{ request()->routeIs('admin.supplier.index') ? 'bg-gray-200' : 'bg-transparent' }}
+                    rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
+                    dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
+                    hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
+                    focus:outline-none focus:shadow-outline"
+                        href="/admin/supplier">Supplier</a>
+
+                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900
+                    {{ request()->routeIs('admin.stock.index') ? 'bg-gray-200' : 'bg-transparent' }}
+                    rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600
+                    dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200
+                    hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200
+                    focus:outline-none focus:shadow-outline"
+                        href="/admin/stock">Stock</a>
+                @endif
+
+
+
+
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                        <span>Statistic</span>
-                        <svg fill="currentColor" viewBox="0 0 20 20" :class="{ 'rotate-180': open, 'rotate-0': !open }"
-                            class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    <div x-show="open" x-transition:enter="transition ease-out duration-100"
-                        x-transition:enter-start="transform opacity-0 scale-95"
-                        x-transition:enter-end="transform opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-75"
-                        x-transition:leave-start="transform opacity-100 scale-100"
-                        x-transition:leave-end="transform opacity-0 scale-95" class="">
-                        <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-700">
-                            <x-dropdown-link :href="route('admin.income-statement')"
-                                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                Income Statement
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('admin.total-revenue')"
-                                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                Total Revenue
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('admin.menu-revenue')"
-                                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                Menu Revenue
-                            </x-dropdown-link>
-                            {{-- <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                            this.closest('form').submit();"
-                                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form> --}}
-                        </div>
-                    </div>
-                </div>
-                <div @click.away="open = false" class="relative" x-data="{ open: false }">
-                    <button @click="open = !open"
-                        class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                        <span>Admin</span>
+                        <span>{{ Auth::user()->name }}</span>
                         <svg fill="currentColor" viewBox="0 0 20 20" :class="{ 'rotate-180': open, 'rotate-0': !open }"
                             class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
                             <path fill-rule="evenodd"

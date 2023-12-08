@@ -7,27 +7,24 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-
-
-            <div class="inline-block ">
-                <input type="text" id="searchInput" placeholder="Type to search..."
-                    class="flex justify-end m-2 p-2 max-w-xs">
-                <ul id="resultsList" class=" m-2 p-2"></ul>
-            </div>
-
-            <div class="inline-block ">
+            <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.product.create') }}"
                     class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New
                     Product</a>
+
+            </div>
+            <div class=" justify-start ">
+                <input type="text" id="searchInput" placeholder="Type to search..."
+                    class="flex justify-end p-2 max-w-xs">
+                <ul id="resultsList" class=" p-2"></ul>
+            </div>
+            <div class="inline-block ">
+
             </div>
 
+            <div class="inline-block ">
 
-
-
-
-
-
+            </div>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">

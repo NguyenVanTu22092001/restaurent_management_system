@@ -12,8 +12,10 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.product.update', $product->id) }}"
+                        enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="sm:col-span-6">
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
                             <div class="mt-1">
@@ -77,11 +79,11 @@
                                 <select id="categories" name="categories[]" class="form-multiselect block w-full mt-1"
                                     multiple>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @selected($product->categories->contains($category))>
+                                            {{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                         <div class="mt-6 p-4">
                             <button type="submit"

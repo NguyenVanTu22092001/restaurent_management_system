@@ -74,7 +74,7 @@
         <img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=2113845388670333&amp;ev=PageView&amp;noscript=1" />
     </noscript> --}}
-    <script>
+    {{-- <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({
@@ -99,8 +99,33 @@
             "complete" !== document.readyState ? window.addEventListener ? window.addEventListener("load", t) : window
                 .attachEvent && window.attachEvent("onload", t) : t()
         }();
-    </script>
+    </script> --}}
+
+
+
+
     <style>
+        body:before {
+            content: "";
+            display: block;
+            margin: auto;
+            position: fixed;
+            left: -1px;
+            width: calc(100% + 1px);
+            height: 100%;
+            top: 0;
+            border-width: 69px;
+            border-image: url(https://images.getbento.com/accounts/3c10e657dc5f2aa01b55394e8376688a/media/images/1426855483border.png);
+            border-image-slice: 110;
+            border-style: solid;
+            border-image-repeat: stretch;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+
+
+
         /* Base styles for larger screens */
         .mySlides {
             display: none;
@@ -276,16 +301,17 @@
                                     <a class="site-nav-link " href="/">
                                         Home</a>
                                 </li>
+
                                 <li>
+                                    <a class="site-nav-link " href="/menus">Menus</a>
+                                </li>
+                                {{-- <li>
                                     <a class="site-nav-link " href="/location">
                                         Location</a>
                                 </li>
                                 <li>
-                                    <a class="site-nav-link " href="/menus">Menus</a>
-                                </li>
-                                <li>
                                     <a class="site-nav-link " href="/ourstory">Our Story</a>
-                                </li>
+                                </li> --}}
                                 @if (Auth::check())
                                     <li>
                                         <a class="site-nav-link" href="/profile">Profile</a>
@@ -329,7 +355,7 @@
                             alt="icon" />
                     </a>
                 </div>
-                <div class="site-location">
+                {{-- <div class="site-location">
                     <a href="https://maps.google.com/?cid=17981716346260106472" class="site-location__address"
                         target="_blank" rel="noopener" data-bb-track="button" data-bb-track-on="click"
                         data-bb-track-category="Address" data-bb-track-action="Click"
@@ -337,14 +363,14 @@
                     <a class="site-location__tel" href="tel:720.769.1414" data-bb-track="button"
                         data-bb-track-on="click" data-bb-track-category="Phone Number" data-bb-track-action="Click"
                         data-bb-track-label="Header">720.769.1414</a>
-                </div>
-                <button type="button" class="nav-toggle-btn" aria-controls="SiteHeaderMobilePanel"
+                </div> --}}
+                {{-- <button type="button" class="nav-toggle-btn" aria-controls="SiteHeaderMobilePanel"
                     aria-expanded="falses">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="nav-toggle-btn__line"></span>
                     <span class="nav-toggle-btn__line"></span>
                     <span class="nav-toggle-btn__line"></span>
-                </button>
+                </button> --}}
                 <div id="SiteHeaderMobilePanel" class="site-header-mobi-panel">
                     {{-- <div id="SiteHeaderMobilePanel"
                     class="site-header-mobi-panel site-header-mobi-panel--show
@@ -356,16 +382,17 @@
                                     <a class="site-nav-link " href="/">
                                         Home</a>
                                 </li>
-                                <li>
-                                    <a class="site-nav-link " href="/location">
-                                        Location</a>
-                                </li>
+
                                 <li>
                                     <a class="site-nav-link " href="/menus">Menus</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a class="site-nav-link " href="/ourstory">Our Story</a>
                                 </li>
+                                <li>
+                                    <a class="site-nav-link " href="/location">
+                                        Location</a>
+                                </li> --}}
                                 {{-- <li>
                                     <a class="site-nav-link " href="happenings/index.html">Happenings</a>
                                 </li> --}}
@@ -522,14 +549,14 @@
             targetElement.classList.toggle('site-header-mobi-panel--open');
         });
     </script>
-    <script type="text/javascript"
+    {{-- <script type="text/javascript"
         src="{{ asset('theme-assets.getbento.com/sensei/e013a28.sensei/assets/js/foot.libs.min.js') }}"></script>
     <script type="text/javascript"
         src="{{ asset('theme-assets.getbento.com/sensei/e013a28.sensei/assets/js/bentobox.min.js') }}"></script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNH76ZF" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <script id="alerts-component-script" type="text/javascript"
-        src="{{ asset('app-assets.getbento.com/alerts-component/54a47dd/main.js') }}"></script>
+        src="{{ asset('app-assets.getbento.com/alerts-component/54a47dd/main.js') }}"></script> --}}
 </body>
 
 </html>
